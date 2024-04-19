@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "516102247261",
+    "project_id": "carozone-58fa1",
+    "storage_bucket": "carozone-58fa1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516102247261:android:9c509996ecef8b69e6ceb4",
+        "android_client_info": {
+          "package_name": "com.example.car_o_zone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQj-fwNFuxOajaUB-6kH_FxqY_S5P1rbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
