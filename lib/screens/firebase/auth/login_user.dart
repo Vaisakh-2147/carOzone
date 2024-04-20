@@ -25,22 +25,40 @@ class _LoginScreenState extends State<LoginScreen> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            "successfully logined",
+            style: TextStyle(fontSize: 18.0),
+          )));
     } on FirebaseAuthException catch (e) {
+      print('message activate');
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              "No User Found for that Email",
-              style: TextStyle(fontSize: 18.0),
-            )));
+          backgroundColor: Colors.orangeAccent,
+          content: Text(
+            "No User Found for that Email",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ));
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              "Wrong Password Provided by User",
-              style: TextStyle(fontSize: 18.0),
-            )));
+          backgroundColor: Colors.orangeAccent,
+          content: Text(
+            "Wrong Password Provided by User",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ));
+      } else {
+        // Handle other errors
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            "Please enter username and password correctly ",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ));
       }
     }
   }
