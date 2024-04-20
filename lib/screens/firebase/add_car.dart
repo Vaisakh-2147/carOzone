@@ -27,14 +27,14 @@ class __AddcarScreenState extends State<AddcarScreen> {
   final carprizeController = TextEditingController();
   final brandController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
-  final carfueltypeController = TextEditingController();
+  // final carfueltypeController = TextEditingController();
   final cartransmissionController = TextEditingController();
   final carenginesizeController = TextEditingController();
   final carmileageController = TextEditingController();
-  final carsafetyratingController = TextEditingController();
+  // final carsafetyratingController = TextEditingController();
   final cargroundclearanceController = TextEditingController();
-  final avgwaitingperiodController = TextEditingController();
-  final carseatingcapacityController = TextEditingController();
+  final avgrwaitingperiodController = TextEditingController();
+  // final carseatingcapacityController = TextEditingController();
   final carsizeController = TextEditingController();
   final carfueltankController = TextEditingController();
   final youtubeurl1Controller = TextEditingController();
@@ -400,7 +400,7 @@ class __AddcarScreenState extends State<AddcarScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      subtitle('car fueltype', 15),
+                                      subtitle('safetyrating', 15),
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *
@@ -670,19 +670,22 @@ class __AddcarScreenState extends State<AddcarScreen> {
                                   carprizeController.text.isEmpty ||
                                   caryearController.text.isEmpty ||
                                   brandController.text.isEmpty ||
-                                  carfueltypeController.text.isEmpty ||
+                                  // carfueltypeController.text.isEmpty ||
                                   cartransmissionController.text.isEmpty ||
                                   carenginesizeController.text.isEmpty ||
                                   carmileageController.text.isEmpty ||
-                                  carsafetyratingController.text.isEmpty ||
+                                  // carsafetyratingController.text.isEmpty ||
                                   cargroundclearanceController.text.isEmpty ||
-                                  carseatingcapacityController.text.isEmpty ||
+                                  // carseatingcapacityController.text.isEmpty ||
                                   carsizeController.text.isEmpty ||
                                   carfueltankController.text.isEmpty ||
                                   _selectedPriceRange == null ||
                                   youtubeurl1Controller.text.isEmpty ||
                                   youtubeurl2Controller.text.isEmpty ||
-                                  youtubeurl3Controller.text.isEmpty) {
+                                  youtubeurl3Controller.text.isEmpty ||
+                                  _selectedFuelType == null ||
+                                  _selectedSeatingCapacity == null ||
+                                  _selectedSafetyrating == null) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
                                   content:
@@ -712,17 +715,15 @@ class __AddcarScreenState extends State<AddcarScreen> {
                                     "carprize": carprizeController.text,
                                     "caryear": caryearController.text,
                                     "brand": brandController.text.toLowerCase(),
-                                    "fueltype": carfueltypeController.text,
+                                    "fueltype": _selectedFuelType,
                                     "transmission":
                                         cartransmissionController.text,
                                     "enginesize": carenginesizeController.text,
                                     "mileage": carmileageController.text,
-                                    "safetyrating":
-                                        carsafetyratingController.text,
+                                    "safetyrating": _selectedSafetyrating,
                                     "groundclearance":
                                         cargroundclearanceController.text,
-                                    "seatingcapacity":
-                                        carseatingcapacityController.text,
+                                    "seatingcapacity": _selectedSeatingCapacity,
                                     "carsize": carsizeController.text,
                                     "carfueltank": carfueltankController.text,
                                     "priceRange": _selectedPriceRange,
@@ -740,13 +741,13 @@ class __AddcarScreenState extends State<AddcarScreen> {
                                   carprizeController.clear();
                                   caryearController.clear();
                                   brandController.clear();
-                                  carfueltypeController.clear();
+
                                   cartransmissionController.clear();
                                   carenginesizeController.clear();
                                   carmileageController.clear();
-                                  carsafetyratingController.clear();
+
                                   cargroundclearanceController.clear();
-                                  carseatingcapacityController.clear();
+
                                   carsizeController.clear();
                                   carfueltankController.clear();
                                   pricerangeController.clear();

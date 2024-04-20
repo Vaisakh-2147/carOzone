@@ -5,6 +5,7 @@ import 'package:car_o_zone/screens/firebase/filter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,7 +33,6 @@ class HomeScreenState extends State<HomeScreen> {
           .snapshots()
           .map((snapshot) => snapshot.docs.isNotEmpty);
     } else {
-      // If user is null, return a stream with false
       return Stream.value(false);
     }
   }
@@ -216,26 +216,15 @@ class HomeScreenState extends State<HomeScreen> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                              child: Image.network(
-                                                carBrandSnapshot['CarBrand'],
+                                              child: CachedNetworkImage(
+                                                imageUrl: carBrandSnapshot[
+                                                    'CarBrand'],
+                                                placeholder: (context, url) =>
+                                                    const CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
                                                 fit: BoxFit.cover,
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  } else {
-                                                    return const Placeholder(
-                                                      fallbackWidth:
-                                                          double.infinity,
-                                                      fallbackHeight:
-                                                          double.infinity,
-                                                      color: Colors.grey,
-                                                    );
-                                                  }
-                                                },
                                               ),
                                             ),
                                           ),
@@ -475,11 +464,22 @@ class HomeScreenState extends State<HomeScreen> {
                                                             left: 40,
                                                             top: 20,
                                                           ),
-                                                          child: Image.network(
-                                                            carsSnapshot[
-                                                                'cars'],
+                                                          child:
+                                                              CachedNetworkImage(
+                                                            imageUrl:
+                                                                carsSnapshot[
+                                                                    'cars'],
+                                                            placeholder: (context,
+                                                                    url) =>
+                                                                const CircularProgressIndicator(),
+                                                            errorWidget: (context,
+                                                                    url,
+                                                                    error) =>
+                                                                const Icon(Icons
+                                                                    .error),
                                                             width: 250,
                                                             height: 130,
+                                                            fit: BoxFit.cover,
                                                           ),
                                                         ),
                                                       ),

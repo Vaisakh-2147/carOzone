@@ -108,8 +108,6 @@ class _CompareScreenState extends State<CompareScreen> {
                               width: 190,
                               height: 125,
                               color: const Color.fromARGB(255, 239, 237, 237),
-                              //   child: Image.network(widget.imageUrl),
-                              // ),
                               child: widget.imageUrl.isEmpty
                                   ? const Placeholder(
                                       fallbackHeight: 125,
@@ -122,8 +120,6 @@ class _CompareScreenState extends State<CompareScreen> {
                               width: 190,
                               height: 125,
                               color: const Color.fromARGB(255, 239, 237, 237),
-                              //   child: Image.network(secondImageUrl),
-                              // ),
                               child: secondImageUrl.isEmpty
                                   ? const Placeholder(
                                       fallbackHeight: 125,
