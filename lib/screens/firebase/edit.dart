@@ -58,9 +58,14 @@ class _EditScreenState extends State<EditScreen> {
     final pickedcars =
         await imagePicker2.pickImage(source: ImageSource.gallery);
 
+    // setState(() {
+    //   _cars = pickedcars!.path;
+    // });
+      if (pickedcars != null) {
     setState(() {
-      _cars = pickedcars!.path;
+      _cars = pickedcars.path;
     });
+  }
   }
 
   void _selectYear(BuildContext context) async {

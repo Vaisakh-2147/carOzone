@@ -47,24 +47,21 @@ User? user = FirebaseAuth.instance.currentUser;
 class _DetailcarScreenState extends State<DetailcarScreen> {
   bool isFavorite = false;
   String? currentCarId;
-  double _rating = 0.0; 
+  double _rating = 0.0;
   User? user = FirebaseAuth.instance.currentUser;
 
   Future<void> _submitRating() async {
     try {
-     
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('ratings')
           .where('carId', isEqualTo: widget.carId)
           .where('userEmail', isEqualTo: user!.email)
           .get();
 
-      
       querySnapshot.docs.forEach((doc) async {
         await doc.reference.delete();
       });
 
-      
       await FirebaseFirestore.instance.collection('ratings').add({
         'carId': widget.carId,
         'userEmail': user!.email,
@@ -101,7 +98,6 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
       isFavorite = prefs.getBool('FAVORITE') ?? false;
     });
 
-    
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('favorite')
         .where('carID', isEqualTo: widget.carId)
@@ -109,8 +105,7 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
         .get();
 
     setState(() {
-      isFavorite =
-          querySnapshot.docs.isNotEmpty;
+      isFavorite = querySnapshot.docs.isNotEmpty;
     });
   }
 
@@ -151,7 +146,6 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
     }
   }
 
-
   void _loadRating() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     double savedRating = prefs.getDouble('RATING') ?? 0.0;
@@ -160,7 +154,6 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
     });
   }
 
- 
   void _saveRating(double rating) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('RATING', rating);
@@ -171,10 +164,10 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 60, 14, 82),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 60, 14, 82), 
+        backgroundColor: const Color.fromARGB(255, 60, 14, 82),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop(); 
+            Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
@@ -207,11 +200,12 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: Image.network(
-                    widget.imageUrl,
-                    width: 250,
-                    height: 130,
-                  ),
+                  child: widget.imageUrl.isEmpty
+                      ? const Placeholder(
+                          fallbackHeight: 130,
+                          fallbackWidth: 250,
+                        )
+                      : Image.network(widget.imageUrl),
                 ),
                 Positioned(
                   left: 10,
@@ -242,15 +236,13 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
                 Positioned(
                   top: 65,
                   right: 5,
-                  
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       RatingBar.builder(
                         initialRating: _rating,
                         minRating: 1,
-                        direction: Axis
-                            .vertical, 
+                        direction: Axis.vertical,
                         allowHalfRating: false,
                         itemCount: 5,
                         itemSize: 25,
@@ -363,8 +355,8 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 40, vertical: 10)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 10)),
                     child: const Text(
                       'Videos',
                       style: TextStyle(
@@ -406,14 +398,13 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
                 onTap: () async {
                   String selectedCarName = carNames[index];
 
-               
                   DocumentSnapshot selectedCarSnapshot = await FirebaseFirestore
                       .instance
                       .collection('carDetails')
                       .where('carname', isEqualTo: selectedCarName)
                       .get()
                       .then((querySnapshot) => querySnapshot.docs.first);
-                
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
