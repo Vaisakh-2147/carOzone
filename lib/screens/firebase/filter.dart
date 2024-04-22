@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -242,10 +243,16 @@ class _FilterScreenState extends State<FilterScreen> {
                                             child: Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 30, top: 20),
-                                              child: Image.network(
-                                                data['cars'],
+                                              child: CachedNetworkImage(
+                                                imageUrl: data['cars'],
+                                                placeholder: (context, url) =>
+                                                    const CircularProgressIndicator(),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
                                                 width: 250,
                                                 height: 130,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),

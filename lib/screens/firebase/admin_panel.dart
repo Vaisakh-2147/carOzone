@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_o_zone/functions/functions.dart';
 import 'package:car_o_zone/screens/firebase/add_brand.dart';
 import 'package:car_o_zone/screens/firebase/add_car.dart';
@@ -237,8 +238,12 @@ class _AdminpanelScreenState extends State<AdminpanelScreen> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
-                                      child: Image.network(
-                                        carsSnapshot['cars'],
+                                      child: CachedNetworkImage(
+                                        imageUrl: carsSnapshot['cars'],
+                                        placeholder: (context, url) =>
+                                            const CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
                                         width: 250,
                                         height: 130,
                                         fit: BoxFit.cover,

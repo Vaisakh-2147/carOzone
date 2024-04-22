@@ -1,4 +1,4 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_o_zone/functions/functions.dart';
 import 'package:flutter/material.dart';
 
@@ -97,14 +97,27 @@ class _SavecompareScreenState extends State<SavecompareScreen> {
                         width: 190,
                         height: 125,
                         color: const Color.fromARGB(255, 239, 237, 237),
-                        child: Image.network(widget.imageUrl),
+                        child: CachedNetworkImage(
+                          imageUrl: widget.imageUrl,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                          width: 250,
+                          height: 130,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       const SizedBox(width: 2),
-                      Container(
+                      CachedNetworkImage(
+                        imageUrl: widget.secondImageUrl,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         width: 190,
                         height: 125,
-                        color: const Color.fromARGB(255, 239, 237, 237),
-                        child: Image.network(widget.secondImageUrl),
+                        fit: BoxFit.cover,
                       ),
                     ],
                   ),
@@ -161,7 +174,6 @@ class _SavecompareScreenState extends State<SavecompareScreen> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    //  Container(height: 30,width: double.infinity,color: Colors.white)
                     Container(
                       height: 38,
                       width: double.infinity,

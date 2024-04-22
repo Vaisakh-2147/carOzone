@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_o_zone/functions/functions.dart';
 import 'package:car_o_zone/screens/firebase/compare_cars.dart';
 import 'package:car_o_zone/screens/hive/comment.dart';
@@ -200,12 +201,18 @@ class _DetailcarScreenState extends State<DetailcarScreen> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: widget.imageUrl.isEmpty
-                      ? const Placeholder(
-                          fallbackHeight: 130,
-                          fallbackWidth: 250,
-                        )
-                      : Image.network(widget.imageUrl),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.imageUrl.isEmpty
+                        ? 'fallback_url_here'
+                        : widget.imageUrl,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                    width: 250,
+                    height: 130,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Positioned(
                   left: 10,

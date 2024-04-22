@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomeScreen()));
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           content: Text(
             "successfully logined",
             style: TextStyle(fontSize: 18.0),

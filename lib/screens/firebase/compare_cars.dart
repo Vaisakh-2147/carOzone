@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:car_o_zone/functions/functions.dart';
 import 'package:car_o_zone/screens/hive/model/car_comparison.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -108,12 +109,14 @@ class _CompareScreenState extends State<CompareScreen> {
                               width: 190,
                               height: 125,
                               color: const Color.fromARGB(255, 239, 237, 237),
-                              child: widget.imageUrl.isEmpty
-                                  ? const Placeholder(
-                                      fallbackHeight: 125,
-                                      fallbackWidth: 190,
-                                    )
-                                  : Image.network(widget.imageUrl),
+                              child: CachedNetworkImage(
+                                imageUrl: widget.imageUrl,
+                                placeholder: (context, url) =>
+                                    const CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             const SizedBox(width: 2),
                             Container(
